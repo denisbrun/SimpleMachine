@@ -52,7 +52,7 @@ h1, h2, h3 {
   display: inline-block;
   border-bottom: 1px solid #555;
   width: 25%;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   outline: none;
   font-size: 1.2rem;
   /* color: #45AC82; */
@@ -90,4 +90,15 @@ h1, h2, h3 {
 
 .alert {
   color: red;
+}
+
+@media(max-width:768px) {
+  #main-section .container {
+    width: 99%;
+  }
+
+  .container-top .grid .field input[type=number] {
+    width: 90%;
+   }
+  
 }
