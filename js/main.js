@@ -26,11 +26,11 @@ async function run() {
 
   // Use the model to do inference on a data point the model hasn't seen.
   // Should print approximately 39.
-  document.getElementById('micro-out-div').innerText = `Using machine learning, the prediction for an input of 20 is ${model.predict(tf.tensor2d([20], [1, 1])).dataSync()}`;
+  resultDiv.innerText = `Using machine learning, the prediction for an input of 20 is ${model.predict(tf.tensor2d([20], [1, 1])).dataSync()}`;
 }
 
 const runTrainingButton = document.getElementById('runTrainingButton');
-const resultDiv = document.getElementById('micro-out-div');
+const resultDiv = document.getElementById('output');
 const slopeInput = document.getElementById('slope');
 const offsetInput = document.getElementById('offset');
 
@@ -38,8 +38,13 @@ runTrainingButton.addEventListener('click', checkIfCanTrain)
 
 function checkIfCanTrain() {
   if(offsetInput.value === '' || slopeInput.value === '') {
+    resultDiv.style.visibility = 'visible';
+    resultDiv.className = 'alert';
+    resultDiv.innerText = `Enter values for slope and offset before training neural network`;
     console.log("enter data before training");
-  } else {
+  } else {    
+    resultDiv.className = '';    
+    resultDiv.innerText = `Training...`;
     console.log(`y = ${slopeInput.value}x + ${offsetInput.value}`);
     
     run();
