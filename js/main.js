@@ -7,14 +7,14 @@ async function run() {
   // Prepare the model for training: Specify the loss and the optimizer.
   model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
 
-  // Generate some synthetic data for training. (y = 2x - 1)
+  // Generate some synthetic data for training. (y = 2x + 1)
   const array = [-5, -1, 0, 1, 2, 3, 4, 10,25];
   let length = array.length;
   const xs = tf.tensor2d(array, [length, 1]);
 
   const array2 = array.map(function(item){
-    
-    return (item*slopeInput.value)-offsetInput.value;
+    console.log(typeof(slopeInput.value))
+    return (item*Number(slopeInput.value))+(Number(offsetInput.value));
   })
   console.log(array2);
   
@@ -22,7 +22,7 @@ async function run() {
   const ys = tf.tensor2d(array2, [length, 1]);
 
   // Train the model using the data.
-  await model.fit(xs, ys, {epochs: 350});
+  await model.fit(xs, ys, {epochs: 280});
 
   // Use the model to do inference on a data point the model hasn't seen.
   // Should print approximately 39.
@@ -40,7 +40,7 @@ function checkIfCanTrain() {
   if(offsetInput.value === '' || slopeInput.value === '') {
     console.log("enter data before training");
   } else {
-    console.log(`y = ${slopeInput.value}x - ${offsetInput.value}`);
+    console.log(`y = ${slopeInput.value}x + ${offsetInput.value}`);
     
     run();
   }
